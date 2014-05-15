@@ -6,6 +6,8 @@ from ghtt.trac import Trac
 def parse_args():
     parser = argparse.ArgumentParser(
         description='Tool for converting a github issues to trac tickets')
+    parser.add_argument('-c', dest='component',
+                        help='the component to write the issues to')
     parser.add_argument('-s', dest='skip',
                         help='comma separated list of issues to skip')
     parser.add_argument('-r', dest='repo',
@@ -40,4 +42,4 @@ def run():
         description += "https://github.com/%s/issues/%s.\n\n" % (args.repo, issue.number)
         description += issue.body
         trac.create_ticket(issue.title,
-                           description, 'Ooni')
+                           description, args.component)
